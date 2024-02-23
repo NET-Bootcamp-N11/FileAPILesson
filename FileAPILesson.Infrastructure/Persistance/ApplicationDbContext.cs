@@ -11,7 +11,6 @@ namespace FileAPILesson.Infrastructure.Persistance
 
         }
 
-        public DbSet<UserProfile> Users { get; set; }
-
+        public virtual DbSet<UserProfile> Users { get; set; }
     }
 }

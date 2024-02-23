@@ -1,6 +1,6 @@
 ﻿namespace FileAPILesson.API.ExternalServices
 {
-    public  class UserProfileExternalService
+    public class UserProfileExternalService
     {
         private readonly IWebHostEnvironment _env;
 
@@ -8,16 +8,12 @@
         {
             _env = env;
         }
-        public UserProfileExternalService()
-        {
-            
-        }
 
         public async Task<string> AddPictureAndGetPath(IFormFile file)
         {
-            string path = Path.Combine(_env.WebRootPath , "images", Guid.NewGuid() + file.Name);
+            string path = Path.Combine(_env.WebRootPath, "images", Guid.NewGuid() + file.FileName);
 
-            using(var stream = File.Create(path))
+            using (var stream = File.Create(path))
             {
                 await file.CopyToAsync(stream);
             }

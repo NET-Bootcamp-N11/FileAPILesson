@@ -13,7 +13,7 @@ namespace FileAPILesson.Domain.Entities.Models
         public IFormFile Picture { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
-        public Role UserRole { get; set; }
+        public int UserRole { get; set; }
 
         [MinLength(5), MaxLength(30)]
         public required string Login { get; set; }

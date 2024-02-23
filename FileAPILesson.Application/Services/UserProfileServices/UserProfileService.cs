@@ -1,12 +1,6 @@
-﻿using FileAPILesson.API.ExternalServices;
-using FileAPILesson.Domain.Entities.DTOs;
+﻿using FileAPILesson.Domain.Entities.DTOs;
 using FileAPILesson.Domain.Entities.Models;
 using FileAPILesson.Infrastructure.Persistance;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileAPILesson.Application.Services.UserProfileServices
 {
@@ -14,7 +8,7 @@ namespace FileAPILesson.Application.Services.UserProfileServices
     {
 
         private readonly ApplicationDbContext _context;
-     
+
 
         public UserProfileService(ApplicationDbContext context)
         {
@@ -22,25 +16,24 @@ namespace FileAPILesson.Application.Services.UserProfileServices
         }
 
 
-        public async Task<UserProfileDTO> CreateUserProfileAsync(UserProfileDTO userDTO)
+        public async Task<string> CreateUserProfileAsync(UserProfileDTO userDTO)
         {
-            UserProfileExternalService obj = new UserProfileExternalService();
 
             var model = new UserProfile()
             {
                 FullName = userDTO.FullName,
                 Phone = userDTO.Phone,
-                UserRole = userDTO.UserRole,
+                UserRole = Convert.ToInt32(userDTO.UserRole),
                 Login = userDTO.Login,
                 Password = userDTO.Password,
-                PicturePath = await obj.AddPictureAndGetPath(userDTO.Picture),
+                PicturePath = userDTO.Path,
             };
 
             _context.Users.Add(model);
 
             await _context.SaveChangesAsync();
 
-            return userDTO;
+            return "yaratildi";
         }
 
         public Task<bool> DeleteUserProfileAsync(int id)

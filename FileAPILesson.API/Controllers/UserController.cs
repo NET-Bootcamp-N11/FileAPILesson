@@ -24,33 +24,21 @@ namespace FileAPILesson.API.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromForm] UserProfileDTO userProfileDTO)
+        public async Task<ActionResult<string>> CreateUser([FromForm] UserProfileDTO userProfileDTO, IFormFile picture)
         {
             UserProfileExternalService service = new UserProfileExternalService(_env);
 
-            userProfileDTO.Path = await service.AddPictureAndGetPath(userProfileDTO.Picture);
+            string picturePath = await service.AddPictureAndGetPath(picture);
             
-            var result = _userService.CreateUserProfileAsync(userProfileDTO);
+            var result = _userService.CreateUserProfileAsync(userProfileDTO, picturePath).Result;
             return Ok(result);
         }
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<IActionResult> CreateUserJson([FromBody] UserProfileDTO userProfileDTO)
+        public IActionResult PostForm(UserProfileDTO userProfileDTO)
         {
-            UserProfileExternalService service = new UserProfileExternalService(_env);
-
-            userProfileDTO.Path = await service.AddPictureAndGetPath(userProfileDTO.Picture);
-
-            var result = _userService.CreateUserProfileAsync(userProfileDTO);
-            return Ok(result);
-        }
-
-        // POST api/<UserController>
-        [HttpPost]
-        public IActionResult PostForm([FromForm] string value, IFormFile file)
-        {
-            return Ok(value);
+            return Ok(userProfileDTO);
         }
 
 

@@ -8,8 +8,6 @@ namespace FileAPILesson.Domain.Entities.DTOs
 {
     public class UserProfileDTO
     {
-        [NotMapped]
-        public IFormFile Picture { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
         public int UserRole { get; set; }
@@ -19,9 +17,6 @@ namespace FileAPILesson.Domain.Entities.DTOs
 
         [MinLength(6)]
         public required string Password { get; set; }
-
-        [JsonIgnore]
-        public string? Path { get; set; }
 
     }
 }

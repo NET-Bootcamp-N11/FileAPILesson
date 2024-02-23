@@ -9,8 +9,6 @@ namespace FileAPILesson.Domain.Entities.Models
     {
         public int Id { get; set; }
 
-        [NotMapped]
-        public IFormFile Picture { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
         public int UserRole { get; set; }

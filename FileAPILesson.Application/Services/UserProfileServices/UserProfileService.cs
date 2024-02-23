@@ -16,20 +16,20 @@ namespace FileAPILesson.Application.Services.UserProfileServices
         }
 
 
-        public async Task<string> CreateUserProfileAsync(UserProfileDTO userDTO)
+        public async Task<string> CreateUserProfileAsync(UserProfileDTO userDTO, string picturePath)
         {
 
             var model = new UserProfile()
             {
                 FullName = userDTO.FullName,
                 Phone = userDTO.Phone,
-                UserRole = Convert.ToInt32(userDTO.UserRole),
+                UserRole = userDTO.UserRole,
                 Login = userDTO.Login,
                 Password = userDTO.Password,
-                PicturePath = userDTO.Path,
+                PicturePath = picturePath,
             };
 
-            _context.Users.Add(model);
+            await _context.Users.AddAsync(model);
 
             await _context.SaveChangesAsync();
 
